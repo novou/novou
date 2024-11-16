@@ -14,7 +14,7 @@ body {
         #2ecc71,    /* Green */
         #9b59b6     /* Violet */
     );
-    background-size: 1000% 1000%;  /* Increased for smoother transitions */
+    background-size: 800% 800%;  /* Increased for smoother transitions */
     animation: gradientBG 30s ease infinite;  /* Slowed down for more subtle effect */
     color: #fff;
     min-height: 100vh;
@@ -69,13 +69,13 @@ body {
         transform: translateY(0) rotateX(0) rotateY(0);
     }
     25% {
-        transform: translateY(-10px) rotateX(2deg) rotateY(-2deg);
+        transform: translateY(-5px) rotateX(1deg) rotateY(-1deg); /* Reduced from -10px and 2deg */
     }
     50% {
-        transform: translateY(5px) rotateX(-1deg) rotateY(1deg);
+        transform: translateY(3px) rotateX(-0.5deg) rotateY(0.5deg); /* Reduced from 5px and 1deg */
     }
     75% {
-        transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);
+        transform: translateY(-3px) rotateX(0.5deg) rotateY(-0.5deg); /* Reduced from -5px and 1deg */
     }
 }
 
@@ -200,17 +200,17 @@ button {
     appearance: none;
     background: rgba(255, 255, 255, 0.1);  /* More transparent background */
     border: 2px solid rgba(255, 255, 255, 0.3);  /* More subtle border */
-    padding: 12px 24px;
+    padding: 15px 32px; /* Increased from 12px 24px */
     border-radius: 25px;
     color: white;
-    font-size: 1.2rem;  /* Increased from 1rem */
+    font-size: 1.3rem; /* Increased from 1.2rem */
     font-family: 'Comic Neue', cursive;  /* Match joke font */
     font-weight: 700;  /* Match joke boldness */
     cursor: pointer;
     transition: all 0.3s ease;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    margin-top: 20px;
+    margin-top: 25px; /* Increased from 20px */
     position: relative;
     overflow: hidden;
     transform: translateZ(0);
@@ -245,6 +245,12 @@ button:active {
     0% { transform: scale(1); -webkit-transform: scale(1); }
     50% { transform: scale(0.95); -webkit-transform: scale(0.95); }
     100% { transform: scale(1); -webkit-transform: scale(1); }
+}
+
+@keyframes clickEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
 }
 
 button.click-animate {
@@ -338,16 +344,12 @@ button:hover {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 2rem;
-    padding: 2rem;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .floating-emoji {
-    position: relative;
+    position: absolute;
     font-size: 2.5rem;
     opacity: 0.5;
     filter: blur(0.5px);
@@ -355,16 +357,39 @@ button:hover {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    animation: floatSpace 6s ease-in-out infinite;
 }
 
-.floating-emoji:nth-child(1) { grid-area: 1 / 1 / 2 / 2; animation-delay: 0s; }
-.floating-emoji:nth-child(2) { grid-area: 1 / 6 / 2 / 7; animation-delay: 1.1s; }
-.floating-emoji:nth-child(3) { grid-area: 2 / 2 / 3 / 3; animation-delay: 2.2s; }
-.floating-emoji:nth-child(4) { grid-area: 2 / 5 / 3 / 6; animation-delay: 3.3s; }
-.floating-emoji:nth-child(5) { grid-area: 3 / 3 / 4 / 4; animation-delay: 4.4s; }
-.floating-emoji:nth-child(6) { grid-area: 3 / 4 / 4 / 5; animation-delay: 5.5s; }
-.floating-emoji:nth-child(7) { grid-area: 4 / 2 / 5 / 3; animation-delay: 6.6s; }
-.floating-emoji:nth-child(8) { grid-area: 4 / 5 / 5 / 6; animation-delay: 7.7s; }
+/* Position each emoji at different spots */
+.floating-emoji:nth-child(1) { left: 15%; top: 20%; animation-delay: 0s; }
+.floating-emoji:nth-child(2) { right: 25%; top: 15%; animation-delay: 0.7s; }
+.floating-emoji:nth-child(3) { left: 35%; bottom: 25%; animation-delay: 1.4s; }
+.floating-emoji:nth-child(4) { right: 15%; bottom: 30%; animation-delay: 2.1s; }
+.floating-emoji:nth-child(5) { left: 50%; top: 40%; animation-delay: 2.8s; }
+.floating-emoji:nth-child(6) { right: 40%; bottom: 40%; animation-delay: 3.5s; }
+.floating-emoji:nth-child(7) { left: 80%; top: 60%; animation-delay: 4.2s; }
+.floating-emoji:nth-child(8) { right: 70%; bottom: 15%; animation-delay: 4.9s; }
+
+@keyframes floatSpace {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateY(-15px) rotate(5deg) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* Add space-themed glows to floating emojis */
+.floating-emoji:nth-child(1) { animation-delay: 0s; filter: drop-shadow(0 0 8px rgba(255, 100, 100, 0.6)); } /* Rocket red glow */
+.floating-emoji:nth-child(2) { animation-delay: 0.7s; filter: drop-shadow(0 0 8px rgba(255, 255, 200, 0.6)); } /* Star yellow glow */
+.floating-emoji:nth-child(3) { animation-delay: 1.4s; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)); } /* Sparkle white glow */
+.floating-emoji:nth-child(4) { animation-delay: 2.1s; filter: drop-shadow(0 0 8px rgba(255, 200, 100, 0.6)); } /* Shooting star gold glow */
+.floating-emoji:nth-child(5) { animation-delay: 2.8s; filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.6)); } /* UFO blue glow */
+.floating-emoji:nth-child(6) { animation-delay: 3.5s; filter: drop-shadow(0 0 8px rgba(100, 255, 200, 0.6)); } /* Earth blue-green glow */
+.floating-emoji:nth-child(7) { animation-delay: 4.2s; filter: drop-shadow(0 0 8px rgba(255, 150, 100, 0.6)); } /* Comet orange glow */
+.floating-emoji:nth-child(8) { animation-delay: 4.9s; filter: drop-shadow(0 0 8px rgba(200, 200, 255, 0.6)); } /* Moon blue-white glow */
 
 @media (hover: hover) {
     .floating-emoji:hover {
@@ -399,9 +424,35 @@ button:hover {
 }
 
 /* Circular Pattern */
+.pattern-circular {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
 .pattern-circular .emoji {
-    position: absolute;
-    animation: rotate 20s linear infinite;
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+@keyframes circularFloat {
+    0%, 100% {
+        transform: translateZ(0) scale(1) rotate(var(--rotation));
+    }
+    50% {
+        transform: translateZ(5px) scale(1.02) rotate(var(--rotation)); /* Reduced from 10px and 1.05 */
+    }
+}
+
+@keyframes circularRotate {
+    from {
+        --rotation: 0deg;
+    }
+    to {
+        --rotation: 360deg;
+    }
 }
 
 /* Diagonal Pattern */
@@ -435,6 +486,7 @@ button:hover {
 
 .pattern-heart {
     position: relative;
+    width: 100%;
     height: 100vh;
 }
 
@@ -461,7 +513,7 @@ button:hover {
 .emoji {
     font-size: clamp(1.5rem, 3vw, 3rem);
     opacity: 0;
-    transition: all 0.5s ease;
+    transition: opacity 0.5s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -469,25 +521,29 @@ button:hover {
 }
 
 .pattern-spiral .emoji {
-    animation: floatSpiral 8s ease-in-out infinite;
+    animation: floatSpiral 12s ease-in-out infinite; /* Increased from 8s */
 }
 
 .pattern-heart .emoji {
-    animation: pulsate 2s ease-in-out infinite;
+    animation: pulsate 3s ease-in-out infinite; /* Increased from 2s */
 }
 
 .pattern-wave .emoji {
-    animation: float 4s ease-in-out infinite;
+    animation: float 6s ease-in-out infinite; /* Increased from 4s */
 }
 
 @keyframes pulsate {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.02); } /* Reduced from 1.05 */
 }
 
 @keyframes floatSpiral {
-    0%, 100% { transform: translateZ(0) rotate(0deg); }
-    50% { transform: translateZ(20px) rotate(180deg); }
+    0%, 100% { 
+        transform: translateZ(0) rotate(0deg); 
+    }
+    50% { 
+        transform: translateZ(5px) rotate(45deg); /* Reduced from 10px and 90deg */
+    }
 }
 
 @keyframes float {
@@ -495,7 +551,7 @@ button:hover {
         transform: translateY(0) scale(1);
     }
     50% {
-        transform: translateY(-10px) scale(1.01);
+        transform: translateY(-4px) scale(1.002); /* Reduced from -6px and 1.005 */
     }
 }
 
@@ -504,7 +560,7 @@ button:hover {
         transform: translateY(0) scale(1);
     }
     50% {
-        transform: translateY(8px) scale(0.99);
+        transform: translateY(4px) scale(0.995); /* Reduced from 8px and 0.99 */
     }
 }
 
@@ -550,8 +606,8 @@ button:hover {
     }
 
     button {
-        padding: 0.8rem 1.8rem;
-        font-size: 1.1rem;
+        padding: 12px 28px; /* Increased from 0.8rem 1.8rem */
+        font-size: 1.2rem; /* Increased from 1.1rem */
         margin-top: 0.5rem;
     }
 }
@@ -583,8 +639,8 @@ button:hover {
     }
 
     button {
-        padding: 0.7rem 1.5rem;
-        font-size: 1rem;
+        padding: 10px 24px; /* Increased from 0.7rem 1.5rem */
+        font-size: 1.1rem; /* Increased from 1rem */
     }
 }
 
@@ -613,10 +669,12 @@ button:hover {
     .container {
         background: rgba(255, 255, 255, 0.05);
         -webkit-backdrop-filter: blur(8px) saturate(180%);
+        backdrop-filter: blur(8px) saturate(180%);
     }
     
     .glass {
         background: rgba(255, 255, 255, 0.05);
         -webkit-backdrop-filter: blur(10px) saturate(180%);
+        backdrop-filter: blur(10px) saturate(180%);
     }
 }
