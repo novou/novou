@@ -163,8 +163,9 @@ html {
 }
 
 .email-image {
-  height: 1.1em;
-  vertical-align: -0.15em;
+  width: min(13.5rem, 100%);
+  height: auto;
+  vertical-align: -0.35em;
 }
 
 .note-list {
