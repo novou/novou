@@ -267,9 +267,12 @@
       </div>
 
       <p>
-        Indeed, \(R\) is continuous and nonincreasing, with
-        \(R(0)=\sum_{i=1}^n \E[X_i]\) and \(R(\tau)\to 0\) as
-        \(\tau\to\infty\). Hence \(R(\tau)-\tau\) crosses zero exactly once.
+        Indeed, \(R\) is continuous and nonincreasing,
+        with \(R(0)=\sum_{i=1}^n \E[X_i]\) and \(R(\tau)\to 0\)
+        as \(\tau\to\infty\). Moreover, \(R(\tau)-\tau\) is
+        strictly decreasing: if \(0 \le s < t\),
+        then \(R(t)-t\le R(s)-t < R(s)-s\).
+        Hence \(R(\tau)-\tau\) has exactly one zero.
       </p>
 
       <p>Using \(\eqref{eq:det-certificate}\),</p>
