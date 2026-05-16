@@ -402,11 +402,15 @@
       <p>This form is useful when the threshold itself is randomized.</p>
 
       <p>
-        <strong>Randomized median threshold.</strong>
-        Now let \(\tau\) be an independent draw from the distribution of \(M\).
-        Equivalently, \(\tau\sim M\), independent of the online instance, so \(G=F\).
-        Under the no-ties assumption, \(\Prob(M>\tau)=1/2\). We prove the averaged
-        surplus bound
+        <strong>A randomized analogue of the median threshold.</strong>
+        The deterministic median threshold chooses a fixed value \(\tau_{\mathrm{med}}\)
+        such that \(\Prob(M>\tau_{\mathrm{med}})=1/2\). We now consider a randomized
+        analogue of this idea. Let \(\tau\) be an independent draw from the distribution
+        of \(M\); equivalently, \(\tau\overset{d}{=}M\), with \(\tau\) independent of the
+        online instance. In the notation above, this means \(G=F\). Under the no-ties
+        assumption, \(\Prob(M>\tau)=1/2\), so the random threshold has the same
+        median-type exceedance probability as the deterministic median threshold. We
+        prove the averaged surplus bound
       </p>
 
       <div class="math-block">
@@ -592,7 +596,7 @@
 
       <p>
         then the two terms in the decomposition are at least the corresponding two terms
-        in the randomized median proof. Hence the same conclusion follows:
+        in the proof above. Hence the same conclusion follows:
       </p>
 
       <div class="math-block">
@@ -612,8 +616,8 @@
         A simple source of additional randomized thresholds comes from convexity. Let
         \(\tau_0\) be any deterministic threshold already certified above, for example
         any threshold in the certified deterministic interval. For \(\alpha\in[0,1]\),
-        draw \(\tau\sim M\) with probability \(\alpha\), and set
-        \(\tau=\tau_0\) with probability \(1-\alpha\), independently of the online
+        draw \(\tau\) from the distribution of \(M\) with probability \(\alpha\), and
+        set \(\tau=\tau_0\) with probability \(1-\alpha\), independently of the online
         instance. Equivalently, the law of \(\tau\) is the convex combination
       </p>
 
@@ -629,7 +633,7 @@
         \[
         \E[\ALG]
         =
-        \alpha\,\E[\ALG\mid \tau\sim M]
+        \alpha\,\E[\ALG\mid \tau\overset{d}{=}M]
         +
         (1-\alpha)\,\E[\ALG\mid \tau=\tau_0]
         \ge
@@ -638,20 +642,18 @@
       </div>
 
       <p>
-        <strong>Implementing the randomized median.</strong>
-        The randomized median rule only requires drawing an independent \(\tau\sim M\).
-        There are several equivalent ways to implement this.
+        <strong>Implementing the randomized analogue.</strong>
+        The randomized analogue only requires drawing an independent threshold
+        \(\tau\overset{d}{=}M\). There are several equivalent ways to implement this.
       </p>
 
       <p>
         First, if we have sample access to each distribution \(D_i\), draw independent
-        samples
+        samples \(S_i\) from \(D_i\) for \(i=1,\ldots,n\), and set
       </p>
 
       <div class="math-block">
         \[
-        S_i\sim D_i \quad (i=1,\ldots,n),
-        \qquad
         \tau:=\max_i S_i.
         \]
       </div>
@@ -660,7 +662,7 @@
 
       <div class="math-block">
         \[
-        \tau\overset{d}=\max_i X_i=M,
+        \tau\overset{d}{=}\max_i X_i=M,
         \]
       </div>
 
@@ -679,7 +681,7 @@
         \]
       </div>
 
-      <p>Draw \(U\sim \mathrm{Unif}(0,1)\) and set</p>
+      <p>Draw \(U\) uniformly from \([0,1]\) and set</p>
 
       <div class="math-block">
         \[
@@ -689,7 +691,7 @@
         \]
       </div>
 
-      <p>Then \(\tau\sim M\).</p>
+      <p>Then \(\tau\overset{d}{=}M\).</p>
 
       <p>
         Finally, if an independent simulator for the full instance is available, draw
@@ -783,11 +785,11 @@
       </p>
 
       <p>
-        The randomized median threshold \(\tau\sim M\) is the cleanest averaged
+        The randomized analogue \(\tau\overset{d}{=}M\) is the cleanest averaged
         certificate, since taking \(G=F\) makes the surplus term telescope and lets the
         threshold part close by exchangeability. The same viewpoint also certifies any
         threshold distribution \(G\) satisfying the two sufficient conditions above, as
-        well as convex mixtures of \(\tau\sim M\) with any certified deterministic
+        well as convex mixtures of the law of \(M\) with any certified deterministic
         threshold.
       </p>
 
