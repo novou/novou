@@ -460,7 +460,7 @@
         \]
       </div>
 
-      <p>Assuming \(F\) is continuous, this gives</p>
+      <p>Assuming \(F\) is continuous,<sup id="fnref-1"><a href="#fn-1">1</a></sup> this gives</p>
 
       <div class="math-block">
         \[
@@ -812,6 +812,19 @@
         rule, and these mixture rules are different ways of certifying the same
         threshold/surplus tradeoff.
       </p>
+
+      <section class="footnotes" aria-label="Footnotes">
+        <ol>
+          <li id="fn-1">
+            The continuity assumption is used here only to evaluate the
+            Lebesgue&ndash;Stieltjes integral. If \(F\) has jumps, then, writing
+            \(\Delta F(a):=F(a)-F(a-)\) and using \(F(0-)=0\) since \(\M\ge0\), one has
+            \(\int_{[0,x]} F(t)\,dF(t)=\frac12 F(x)^2+\frac12\sum_{0\le a\le x}(\Delta F(a))^2\ge \frac12 F(x)^2\).
+            Thus the possible jumps only contribute a nonnegative correction at this
+            point. <a href="#fnref-1" aria-label="Back to content">Back</a>
+          </li>
+        </ol>
+      </section>
 
       <section class="references" aria-labelledby="references-heading">
         <h2 id="references-heading">References</h2>
