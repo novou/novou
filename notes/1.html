@@ -18,7 +18,8 @@
         macros: {
           E: "\\mathbb{E}",
           Prob: "\\mathbb{P}",
-          ALG: "\\mathsf{ALG}"
+          ALG: "\\mathsf{ALG}",
+          M: "\\mathsf{M}"
         }
       }
     };
@@ -41,10 +42,10 @@
       <p>
         <strong>Problem setting.</strong>
         Let \(X_1,\ldots,X_n\) be independent nonnegative random variables, and let
-        \(M:=\max_{1\le i\le n}X_i\) denote the prophet's payoff. The classical prophet
+        \(\M:=\max_{1\le i\le n}X_i\) denote the prophet's payoff. The classical prophet
         inequality is usually attributed to Krengel and Sucheston, who proved that there
         exists a nonanticipating stopping rule with expected payoff at least one half of
-        \(\E[M]\)
+        \(\E[\M]\)
         <span class="citation">[<a href="#ref-ks77">KS77</a>, <a href="#ref-ks78">KS78</a>]</span>.
         The sharp constant \(1/2\) is often attributed to Garling in this early line of
         work. Samuel-Cahn later showed that the same guarantee can be achieved by a
@@ -60,7 +61,7 @@
         \[
         F_i(x):=\Prob(X_i\le x),
         \qquad
-        F(x):=\prod_{i=1}^n F_i(x)=\Prob(M\le x).
+        F(x):=\prod_{i=1}^n F_i(x)=\Prob(\M\le x).
         \]
       </div>
 
@@ -68,7 +69,7 @@
 
       <div class="math-block">
         \[
-        p(\tau):=\Prob(M>\tau),
+        p(\tau):=\Prob(\M>\tau),
         \qquad
         R(\tau):=\sum_{i=1}^n \E[(X_i-\tau)^+].
         \]
@@ -97,7 +98,7 @@
       <p>
         Since \(I_i=1\) implies \(X_i>\tau\), we have
         \(X_iI_i=\tau I_i+(X_i-\tau)^+I_i\). Summing over \(i\) and using
-        \(\sum_i I_i=\mathbf{1}\{M>\tau\}\) gives
+        \(\sum_i I_i=\mathbf{1}\{\M>\tau\}\) gives
       </p>
 
       <div class="math-block">
@@ -105,7 +106,7 @@
         \begin{aligned}
         \E[\ALG]
         &amp;=
-        \underbrace{\E[\tau\mathbf{1}\{M>\tau\}]}_{\text{threshold part}}
+        \underbrace{\E[\tau\mathbf{1}\{\M>\tau\}]}_{\text{threshold part}}
         +
         \underbrace{\E\left[\sum_i (X_i-\tau)^+I_i\right]}_{\text{surplus part}}.
         \end{aligned}
@@ -116,7 +117,7 @@
       <p>
         This threshold/surplus decomposition reveals the central tradeoff: the
         threshold part benefits from a larger value of \(\tau\) on the event
-        \(\{M>\tau\}\), while the surplus part depends on how much value remains
+        \(\{\M>\tau\}\), while the surplus part depends on how much value remains
         above \(\tau\) and on the probability of reaching the corresponding item.
         All threshold rules below use the same decomposition; they differ only in
         how the surplus term is certified.
@@ -172,9 +173,9 @@
         =
         \sum_{i=1}^n\E[(X_i-\tau)^+]
         \ge
-        \E[(M-\tau)^+]
+        \E[(\M-\tau)^+]
         \ge
-        \E[M]-\tau.
+        \E[\M]-\tau.
         \]
       </div>
 
@@ -184,7 +185,7 @@
         \[
         \E[\ALG]
         \ge
-        p(\tau)\tau+(1-p(\tau))(\E[M]-\tau).
+        p(\tau)\tau+(1-p(\tau))(\E[\M]-\tau).
         \]
       </div>
 
@@ -194,9 +195,9 @@
         \[
         \E[\ALG]
         \ge
-        \frac12\E[M]
+        \frac12\E[\M]
         +
-        (1-2p(\tau))\left(\frac12\E[M]-\tau\right).
+        (1-2p(\tau))\left(\frac12\E[\M]-\tau\right).
         \tag{3}\label{eq:median-halfmean-certificate}
         \]
       </div>
@@ -204,7 +205,7 @@
       <p>
         <strong>Median and half-mean thresholds.</strong>
         Equation \(\eqref{eq:median-halfmean-certificate}\) immediately gives two
-        standard choices. If \(\tau_{\mathrm{med}}\) is a median threshold of \(M\)
+        standard choices. If \(\tau_{\mathrm{med}}\) is a median threshold of \(\M\)
         <span class="citation">[<a href="#ref-sc84">SC84</a>]</span>, chosen so that
       </p>
 
@@ -212,7 +213,7 @@
         \[
         p(\tau_{\mathrm{med}})
         =
-        \Prob(M>\tau_{\mathrm{med}})
+        \Prob(\M>\tau_{\mathrm{med}})
         =
         \frac12,
         \]
@@ -226,29 +227,29 @@
 
       <div class="math-block">
         \[
-        \tau=\frac12\E[M],
+        \tau=\frac12\E[\M],
         \]
       </div>
 
       <p>
         the second factor vanishes. Either threshold satisfies
-        \(\E[\ALG]\ge \frac12\E[M]\).
+        \(\E[\ALG]\ge \frac12\E[\M]\).
       </p>
 
       <p>
         More generally, every deterministic threshold between \(\tau_{\mathrm{med}}\)
-        and \(\frac12\E[M]\) also works. Indeed, since \(p(\tau)\) is nonincreasing in
-        \(\tau\), the two factors \(1-2p(\tau)\) and \(\frac12\E[M]-\tau\) have the
+        and \(\frac12\E[\M]\) also works. Indeed, since \(p(\tau)\) is nonincreasing in
+        \(\tau\), the two factors \(1-2p(\tau)\) and \(\frac12\E[\M]-\tau\) have the
         same sign throughout this interval. Therefore
       </p>
 
       <div class="math-block">
         \[
-        (1-2p(\tau))\left(\frac12\E[M]-\tau\right)\ge 0,
+        (1-2p(\tau))\left(\frac12\E[\M]-\tau\right)\ge 0,
         \]
       </div>
 
-      <p>and hence \(\E[\ALG]\ge \frac12\E[M]\).</p>
+      <p>and hence \(\E[\ALG]\ge \frac12\E[\M]\).</p>
 
       <p>
         <strong>Balanced surplus threshold.</strong>
@@ -291,9 +292,9 @@
 
       <div class="math-block">
         \[
-        \E[M]
+        \E[\M]
         \le
-        \tau^\star+\E[(M-\tau^\star)^+]
+        \tau^\star+\E[(\M-\tau^\star)^+]
         \le
         \tau^\star+\sum_{i=1}^n\E[(X_i-\tau^\star)^+]
         =
@@ -301,13 +302,13 @@
         \]
       </div>
 
-      <p>Thus \(\E[\ALG]\ge \tau^\star\ge \frac12\E[M]\).</p>
+      <p>Thus \(\E[\ALG]\ge \tau^\star\ge \frac12\E[\M]\).</p>
 
       <p>The same argument shows that every</p>
 
       <div class="math-block">
         \[
-        \tau\in\left[\frac12\E[M],\tau^\star\right]
+        \tau\in\left[\frac12\E[\M],\tau^\star\right]
         \]
       </div>
 
@@ -328,7 +329,7 @@
         =
         \tau
         \ge
-        \frac12\E[M].
+        \frac12\E[\M].
         \]
       </div>
 
@@ -342,7 +343,7 @@
         \[
         \tau\in
         \left[
-        \min\left\{\tau_{\mathrm{med}},\frac12\E[M]\right\},
+        \min\left\{\tau_{\mathrm{med}},\frac12\E[\M]\right\},
         \max\left\{\tau_{\mathrm{med}},\tau^\star\right\}
         \right].
         \]
@@ -350,7 +351,7 @@
 
       <p>
         That is, every threshold in this interval satisfies
-        \(\E[\ALG]\ge \frac12\E[M]\).
+        \(\E[\ALG]\ge \frac12\E[\M]\).
       </p>
 
       <p>
@@ -404,11 +405,11 @@
       <p>
         <strong>A randomized analogue of the median threshold.</strong>
         The deterministic median threshold chooses a fixed value \(\tau_{\mathrm{med}}\)
-        such that \(\Prob(M>\tau_{\mathrm{med}})=1/2\). We now consider a randomized
+        such that \(\Prob(\M>\tau_{\mathrm{med}})=1/2\). We now consider a randomized
         analogue of this idea. Let \(\tau\) be an independent draw from the distribution
-        of \(M\); equivalently, \(\tau\overset{d}{=}M\), with \(\tau\) independent of the
+        of \(\M\); equivalently, \(\tau\overset{d}{=}\M\), with \(\tau\) independent of the
         online instance. In the notation above, this means \(G=F\). Under the no-ties
-        assumption, \(\Prob(M>\tau)=1/2\), so the random threshold has the same
+        assumption, \(\Prob(\M>\tau)=1/2\), so the random threshold has the same
         median-type exceedance probability as the deterministic median threshold. We
         prove the averaged surplus bound
       </p>
@@ -417,7 +418,7 @@
         \[
         \E\left[\sum_{i=1}^n (X_i-\tau)^+I_i\right]
         \ge
-        \frac12\E[(M-\tau)^+].
+        \frac12\E[(\M-\tau)^+].
         \tag{5}\label{eq:random-surplus-bound}
         \]
       </div>
@@ -497,15 +498,15 @@
         \]
       </div>
 
-      <p>Since \(M\) and \(\tau\) are independent with common CDF \(F\),</p>
+      <p>Since \(\M\) and \(\tau\) are independent with common CDF \(F\),</p>
 
       <div class="math-block">
         \[
-        \E[(M-\tau)^+]
+        \E[(\M-\tau)^+]
         =
-        \int_0^\infty \Prob(\tau&lt;x&lt;M)\,dx
+        \int_0^\infty \Prob(\tau&lt;x&lt;\M)\,dx
         =
-        \int_0^\infty \Prob[\tau&lt;x]\Prob[M>x]\,dx
+        \int_0^\infty \Prob[\tau&lt;x]\Prob[\M>x]\,dx
         =
         \int_0^\infty F(x)(1-F(x))\,dx.
         \]
@@ -523,34 +524,34 @@
         \begin{aligned}
         \E[\ALG]
         &amp;\ge
-        \E[\tau\mathbf{1}\{M>\tau\}]
+        \E[\tau\mathbf{1}\{\M>\tau\}]
         +
-        \frac12\E[(M-\tau)^+] \\
+        \frac12\E[(\M-\tau)^+] \\
         &amp;=
-        \E[\tau\mathbf{1}\{M>\tau\}]
+        \E[\tau\mathbf{1}\{\M>\tau\}]
         +
-        \frac12\E[(M-\tau)\mathbf{1}\{M>\tau\}] \\
+        \frac12\E[(\M-\tau)\mathbf{1}\{\M>\tau\}] \\
         &amp;=
-        \frac12\E[(M+\tau)\mathbf{1}\{M>\tau\}].
+        \frac12\E[(\M+\tau)\mathbf{1}\{\M>\tau\}].
         \end{aligned}
         \]
       </div>
 
-      <p>By exchangeability of the i.i.d. pair \((M,\tau)\) and the no-ties assumption,</p>
+      <p>By exchangeability of the i.i.d. pair \((\M,\tau)\) and the no-ties assumption,</p>
 
       <div class="math-block">
         \[
-        \E[(M+\tau)\mathbf{1}\{M>\tau\}]
+        \E[(\M+\tau)\mathbf{1}\{\M>\tau\}]
         =
-        \E[(M+\tau)\mathbf{1}\{\tau>M\}]
+        \E[(\M+\tau)\mathbf{1}\{\tau>\M\}]
         =
-        \frac12\E[M+\tau]
+        \frac12\E[\M+\tau]
         =
-        \E[M].
+        \E[\M].
         \]
       </div>
 
-      <p>Thus \(\E[\ALG]\ge \frac12\E[M]\).</p>
+      <p>Thus \(\E[\ALG]\ge \frac12\E[\M]\).</p>
 
       <p>
         <strong>Other randomized thresholds.</strong>
@@ -601,7 +602,7 @@
 
       <div class="math-block">
         \[
-        \E[\ALG]\ge \frac12\E[M].
+        \E[\ALG]\ge \frac12\E[\M].
         \]
       </div>
 
@@ -616,7 +617,7 @@
         A simple source of additional randomized thresholds comes from convexity. Let
         \(\tau_0\) be any deterministic threshold already certified above, for example
         any threshold in the certified deterministic interval. For \(\alpha\in[0,1]\),
-        draw \(\tau\) from the distribution of \(M\) with probability \(\alpha\), and
+        draw \(\tau\) from the distribution of \(\M\) with probability \(\alpha\), and
         set \(\tau=\tau_0\) with probability \(1-\alpha\), independently of the online
         instance. Equivalently, the law of \(\tau\) is the convex combination
       </p>
@@ -633,18 +634,18 @@
         \[
         \E[\ALG]
         =
-        \alpha\,\E[\ALG\mid \tau\overset{d}{=}M]
+        \alpha\,\E[\ALG\mid \tau\overset{d}{=}\M]
         +
         (1-\alpha)\,\E[\ALG\mid \tau=\tau_0]
         \ge
-        \frac12\E[M].
+        \frac12\E[\M].
         \]
       </div>
 
       <p>
         <strong>Implementing the randomized analogue.</strong>
         The randomized analogue only requires drawing an independent threshold
-        \(\tau\overset{d}{=}M\). There are several equivalent ways to implement this.
+        \(\tau\overset{d}{=}\M\). There are several equivalent ways to implement this.
       </p>
 
       <p>
@@ -662,7 +663,7 @@
 
       <div class="math-block">
         \[
-        \tau\overset{d}{=}\max_i X_i=M,
+        \tau\overset{d}{=}\max_i X_i=\M,
         \]
       </div>
 
@@ -672,7 +673,7 @@
       </p>
 
       <p>
-        Second, if the CDFs \(F_i\) are known, then the CDF of \(M\) is
+        Second, if the CDFs \(F_i\) are known, then the CDF of \(\M\) is
       </p>
 
       <div class="math-block">
@@ -691,7 +692,7 @@
         \]
       </div>
 
-      <p>Then \(\tau\overset{d}{=}M\).</p>
+      <p>Then \(\tau\overset{d}{=}\M\).</p>
 
       <p>
         Finally, if an independent simulator for the full instance is available, draw
@@ -707,7 +708,7 @@
       <p>
         If only historical data are available, one may approximate this by drawing
         uniformly from empirical past maxima. The exact theorem applies whenever the
-        resulting threshold is an independent draw from the distribution of \(M\).
+        resulting threshold is an independent draw from the distribution of \(\M\).
       </p>
 
       <p>
@@ -720,7 +721,7 @@
         \[
         \E[\ALG]
         =
-        \underbrace{\E[\tau\mathbf{1}\{M>\tau\}]}_{\text{threshold part}}
+        \underbrace{\E[\tau\mathbf{1}\{\M>\tau\}]}_{\text{threshold part}}
         +
         \underbrace{\E\left[\sum_i (X_i-\tau)^+I_i\right]}_{\text{surplus part}}.
         \]
@@ -780,16 +781,16 @@
       <p>
         This pointwise certificate is what certifies the deterministic threshold rules
         above, including the median threshold \(\tau_{\mathrm{med}}\), the half-mean
-        threshold \(\frac12\E[M]\), the balanced surplus threshold \(\tau^\star\), and
+        threshold \(\frac12\E[\M]\), the balanced surplus threshold \(\tau^\star\), and
         every threshold in the deterministic interval.
       </p>
 
       <p>
-        The randomized analogue \(\tau\overset{d}{=}M\) is the cleanest averaged
+        The randomized analogue \(\tau\overset{d}{=}\M\) is the cleanest averaged
         certificate, since taking \(G=F\) makes the surplus term telescope and lets the
         threshold part close by exchangeability. The same viewpoint also certifies any
         threshold distribution \(G\) satisfying the two sufficient conditions above, as
-        well as convex mixtures of the law of \(M\) with any certified deterministic
+        well as convex mixtures of the law of \(\M\) with any certified deterministic
         threshold.
       </p>
 
