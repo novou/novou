@@ -39,8 +39,9 @@
         <p>Jiechen Zhang</p>
       </header>
 
+      <h2>Problem setting</h2>
+
       <p>
-        <strong>Problem setting.</strong>
         Let \(X_1,\ldots,X_n\) be independent nonnegative random variables, and let
         \(\M:=\max_{1\le i\le n}X_i\) denote the prophet's payoff. The classical prophet
         inequality is usually attributed to Krengel and Sucheston, who proved that there
@@ -80,8 +81,9 @@
         case follows by independent infinitesimal tie-breaking perturbations.
       </p>
 
+      <h2>A common threshold decomposition</h2>
+
       <p>
-        <strong>A common threshold decomposition.</strong>
         Let \(\tau\ge 0\) be a threshold, possibly random, independent of
         \(X_1,\ldots,X_n\). The algorithm stops at the first index \(i\) such that
         \(X_i>\tau\). Define
@@ -123,8 +125,9 @@
         how the surplus term is certified.
       </p>
 
+      <h2>Deterministic thresholds</h2>
+
       <p>
-        <strong>Deterministic thresholds.</strong>
         Assume in this paragraph that \(\tau\) is deterministic. Conditioning on whether
         the algorithm reaches item \(i\), independence gives
       </p>
@@ -202,8 +205,9 @@
         \]
       </div>
 
+      <h3>Median and half-mean thresholds</h3>
+
       <p>
-        <strong>Median and half-mean thresholds.</strong>
         Equation \(\eqref{eq:median-halfmean-certificate}\) immediately gives two
         standard choices. If \(\tau_{\mathrm{med}}\) is a median threshold of \(\M\)
         <span class="citation">[<a href="#ref-sc84">SC84</a>]</span>, chosen so that
@@ -251,8 +255,9 @@
 
       <p>and hence \(\E[\ALG]\ge \frac12\E[\M]\).</p>
 
+      <h3>Balanced surplus threshold</h3>
+
       <p>
-        <strong>Balanced surplus threshold.</strong>
         Another useful deterministic threshold <span class="citation">[<a href="#ref-sc84">SC84</a>]</span> is the unique fixed point \(\tau^\star\)
         of
       </p>
@@ -333,8 +338,9 @@
         \]
       </div>
 
+      <h3>A certified interval of deterministic thresholds</h3>
+
       <p>
-        <strong>A certified interval of deterministic thresholds.</strong>
         Combining the two deterministic families above, the present certificates
         guarantee the \(1/2\) bound for every
       </p>
@@ -354,8 +360,11 @@
         \(\E[\ALG]\ge \frac12\E[\M]\).
       </p>
 
+      <h2>Random thresholds</h2>
+
+      <h3>A surplus formula for random thresholds</h3>
+
       <p>
-        <strong>A surplus formula for random thresholds.</strong>
         Let \(\tau\) have CDF \(G\), independent of \(X_1,\ldots,X_n\). Conditional on
         \(\tau=t\), the rule becomes the deterministic threshold-\(t\) rule. For item
         \(i\) to contribute surplus, all previous values must be at most \(t\), while
@@ -402,8 +411,9 @@
 
       <p>This form is useful when the threshold itself is randomized.</p>
 
+      <h3>A randomized analogue of the median threshold</h3>
+
       <p>
-        <strong>A randomized analogue of the median threshold.</strong>
         The deterministic median threshold chooses a fixed value \(\tau_{\mathrm{med}}\)
         such that \(\Prob(\M>\tau_{\mathrm{med}})=1/2\). We now consider a randomized
         analogue of this idea. Let \(\tau\) be an independent draw from the distribution
@@ -553,8 +563,9 @@
 
       <p>Thus \(\E[\ALG]\ge \frac12\E[\M]\).</p>
 
+      <h3>Other randomized thresholds</h3>
+
       <p>
-        <strong>Other randomized thresholds.</strong>
         The argument above also suggests a sufficient condition for other randomized
         thresholds. Let \(\tau\) have CDF \(G\), independent of \(X_1,\ldots,X_n\).
         Suppose first that, for every \(i\) and every \(x\ge 0\),
@@ -642,8 +653,9 @@
         \]
       </div>
 
+      <h3>Implementing the randomized analogue</h3>
+
       <p>
-        <strong>Implementing the randomized analogue.</strong>
         The randomized analogue only requires drawing an independent threshold
         \(\tau\overset{d}{=}\M\). There are several equivalent ways to implement this.
       </p>
@@ -711,8 +723,9 @@
         resulting threshold is an independent draw from the distribution of \(\M\).
       </p>
 
+      <h2>Takeaway</h2>
+
       <p>
-        <strong>Takeaway.</strong>
         The deterministic and randomized threshold rules above are all consequences of
         the same decomposition
       </p>
