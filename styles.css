@@ -163,7 +163,7 @@ html {
 }
 
 .email-image {
-  width: min(10.75rem, 100%);
+  width: min(11.75rem, 100%);
   height: auto;
   vertical-align: -0.35em;
 }
@@ -184,6 +184,10 @@ html {
 }
 
 .note-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
   margin-bottom: 1.75rem;
   font-size: 0.95rem;
 }
