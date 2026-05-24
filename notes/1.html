@@ -7,6 +7,161 @@
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="../favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .inline-footnote-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.25rem;
+      height: 1.1rem;
+      margin: 0 0.12rem;
+      padding: 0;
+      color: #111;
+      background: #fff;
+      border: 1.5px solid #111;
+      border-radius: 2px;
+      font: inherit;
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1;
+      vertical-align: super;
+      cursor: pointer;
+      transition: background 120ms ease, color 120ms ease, box-shadow 120ms ease;
+    }
+
+    .inline-footnote-trigger[aria-expanded="true"] {
+      color: #fff;
+      background: #111;
+      box-shadow: 0 0 0 1px #111;
+    }
+
+    .inline-footnote-trigger:focus-visible {
+      outline: 2px solid #111;
+      outline-offset: 2px;
+    }
+
+    .local-footnote-window {
+      margin: 0.75rem 0 1.1rem;
+      padding: 0.85rem 1rem 0.95rem;
+      background: #fff;
+      border: 2px solid #111;
+      border-radius: 2px;
+      box-shadow: 4px 4px 0 #111;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .local-footnote-window::before {
+      content: none;
+    }
+
+    .local-footnote-window[hidden] {
+      display: none;
+    }
+
+    .local-footnote-window p {
+      margin: 0;
+    }
+
+    .clickable-proof {
+      margin: 2rem 0 1.6rem;
+    }
+
+    .clickable-proof-heading {
+      margin: 0;
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .clickable-proof-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      padding: 0.8rem 0.9rem;
+      color: #111;
+      background: #fff;
+      border: 2px solid #111;
+      border-radius: 2px;
+      box-shadow: none;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.3;
+      text-align: left;
+      cursor: pointer;
+      transition: background 120ms ease, color 120ms ease, box-shadow 120ms ease;
+    }
+
+    .clickable-proof-toggle span {
+      min-width: 0;
+    }
+
+    .clickable-proof-toggle::after {
+      content: "+";
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 1.35rem;
+      height: 1.35rem;
+      color: #111;
+      background: #fff;
+      border: 1.5px solid #111;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .clickable-proof-toggle[aria-expanded="true"] {
+      color: #111;
+      background: #fff;
+      box-shadow: inset 0 -2px 0 #111;
+    }
+
+    .clickable-proof-toggle[aria-expanded="true"]::after {
+      content: "\2212";
+      color: #111;
+      background: #fff;
+      border-color: #111;
+    }
+
+    .clickable-proof-toggle:focus-visible {
+      outline: 2px solid #111;
+      outline-offset: 3px;
+    }
+
+    .clickable-proof-panel {
+      margin: 0.75rem 0 0;
+      padding: 1.05rem 1.15rem;
+      background: #fff;
+      border: 2px solid #111;
+      border-radius: 2px;
+      box-shadow: 4px 4px 0 #111;
+    }
+
+    .clickable-proof-panel[hidden] {
+      display: none;
+    }
+
+    .clickable-proof-panel > :first-child {
+      margin-top: 0;
+    }
+
+    .clickable-proof-panel > :last-child {
+      margin-bottom: 0;
+    }
+
+    .proof-credit {
+      margin-top: 1.2rem;
+      padding-top: 0.75rem;
+      border-top: 1.5px solid #111;
+      color: #444;
+      font-size: 0.9rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+  </style>
   <script defer src="../top-button.js"></script>
   <script>
     window.MathJax = {
@@ -461,7 +616,33 @@
         \]
       </div>
 
-      <p>Assuming \(F\) is continuous,<sup id="fnref-1"><a href="#fn-1">1</a></sup> this gives</p>
+      <p>
+        Assuming \(F\) is continuous,<button
+          type="button"
+          class="inline-footnote-trigger"
+          id="fnref-1"
+          aria-label="Toggle footnote about the continuity assumption"
+          aria-expanded="false"
+          aria-controls="fn-window-1"
+          data-disclosure-target="fn-window-1"
+        >1</button> this gives
+      </p>
+
+      <aside
+        class="local-footnote-window"
+        id="fn-window-1"
+        role="note"
+        hidden
+      >
+        <p>
+          The continuity assumption is used here only to evaluate the
+          Lebesgue&ndash;Stieltjes integral. If \(F\) has jumps, then, writing
+          \(\Delta F(a):=F(a)-F(a-)\) and using \(F(0-)=0\) since \(\M\ge0\), one has
+          \(\int_{[0,x]} F(t)\,dF(t)=\frac12 F(x)^2+\frac12\sum_{0\le a\le x}(\Delta F(a))^2\ge \frac12 F(x)^2\).
+          Thus the possible jumps only contribute a nonnegative correction at this
+          point.
+        </p>
+      </aside>
 
       <div class="math-block">
         \[
@@ -563,6 +744,134 @@
       </div>
 
       <p>Thus \(\E[\ALG]\ge \frac12\E[\M]\).</p>
+
+      <section
+        class="clickable-proof"
+        id="alternative-proof-tail-dominance"
+        aria-labelledby="alternative-proof-tail-dominance-heading"
+      >
+        <h2 class="clickable-proof-heading"
+          id="alternative-proof-tail-dominance-heading"
+        >
+          <button
+            type="button"
+            class="clickable-proof-toggle"
+            aria-expanded="false"
+            aria-controls="alternative-proof-tail-dominance-panel"
+            data-disclosure-target="alternative-proof-tail-dominance-panel"
+          >
+            <span>Alternative Proof: Pointwise Tail Dominance</span>
+          </button>
+        </h2>
+
+        <aside
+          class="clickable-proof-panel"
+          id="alternative-proof-tail-dominance-panel"
+          role="note"
+          aria-labelledby="alternative-proof-tail-dominance-heading"
+          hidden
+        >
+          <p>
+            The proof above certifies the randomized analogue through the averaged
+            surplus term. We now give a direct tail certificate in the no-ties case;
+            distributions with atoms are handled by the same independent infinitesimal
+            tie-breaking convention used above. Whenever \(\tau\overset{d}{=}\M\) and
+            \(\tau\) is independent of \(X_1,\ldots,X_n\), for every \(z\ge 0\),
+          </p>
+
+          <div class="math-block">
+            \[
+            \Prob(\ALG>z)\ge \frac12\Prob(\M>z).
+            \tag{8}\label{eq:tail-dominance}
+            \]
+          </div>
+
+          <p>
+            Integrating \(\eqref{eq:tail-dominance}\) over \(z\) recovers
+            \(\E[\ALG]\ge \frac12\E[\M]\). Thus the dominance can be seen pointwise
+            in the tail level \(z\), rather than only after averaging the surplus over
+            the threshold distribution.
+          </p>
+
+          <p>
+            Let \(F\) be the CDF of \(\M\), and fix \(z\ge 0\). On the event
+            \(\{\tau>z\}\), if \(\M>\tau\), then some online value exceeds the
+            threshold; the algorithm accepts a value larger than \(\tau\), and hence
+            larger than \(z\). Since \(\M\) and \(\tau\) are independent and
+            identically distributed, exchangeability and the no-ties assumption give
+          </p>
+
+          <div class="math-block">
+            \[
+            \Prob(\ALG>z,\ \tau>z)
+            \ge
+            \Prob(\M>\tau,\ \tau>z)
+            =
+            \frac12(1-F(z))^2.
+            \]
+          </div>
+
+          <p>
+            It remains to treat \(\{\tau\le z\}\). On \(\{\M>z\}\), let \(I\) be the
+            first index with \(X_I>z\). To represent the independent threshold, write
+            \(\tau=\max_k S_k\), where the \(S_k\)'s are independent draws from the
+            corresponding distributions, independent of the online \(X_k\)'s. Define
+          </p>
+
+          <div class="math-block">
+            \[
+            Y_X:=\max_{j&lt;I}X_j,
+            \qquad
+            Y_S:=\max_{j&lt;I}S_j.
+            \]
+          </div>
+
+          <p>
+            With the empty maximum equal to \(0\), conditional on \(\{I=i\}\) and
+            \(\{\tau\le z\}\), the two collections \((X_j)_{j&lt;i}\) and \((S_j)_{j&lt;i}\)
+            are independent copies, with each corresponding coordinate conditioned to
+            lie at most \(z\). Hence
+            \(\Prob(Y_S\ge Y_X\mid I=i,\tau\le z)\ge \frac12\). Since
+            \(\tau=\max_k S_k\), we also have \(\tau\ge Y_S\). Therefore, conditional on
+            \(\{I=i\}\) and \(\{\tau\le z\}\), with probability at least \(1/2\), we have
+            \(\tau\ge Y_X\). In that case the algorithm does not stop before \(i\), while
+            \(X_i>z\ge\tau\), so it accepts a value larger than \(z\). Therefore
+          </p>
+
+          <div class="math-block">
+            \[
+            \Prob(\ALG>z,\ \tau\le z)
+            \ge
+            \frac12\Prob(\M>z,\ \tau\le z)
+            =
+            \frac12F(z)(1-F(z)).
+            \]
+          </div>
+
+          <p>
+            Adding the two cases gives
+          </p>
+
+          <div class="math-block">
+            \[
+            \Prob(\ALG>z)
+            \ge
+            \frac12(1-F(z))^2+\frac12F(z)(1-F(z))
+            =
+            \frac12(1-F(z)),
+            \]
+          </div>
+
+          <p>
+            which is exactly \(\eqref{eq:tail-dominance}\).
+          </p>
+
+          <p class="proof-credit">
+            This alternate proof was inspired by a simple prompt to ChatGPT 5.5 Plus,
+            which produced the idea after about four minutes of thinking.
+          </p>
+        </aside>
+      </section>
 
       <h3>Other randomized thresholds</h3>
 
@@ -814,19 +1123,6 @@
         threshold/surplus tradeoff.
       </p>
 
-      <section class="footnotes" aria-label="Footnotes">
-        <ol>
-          <li id="fn-1">
-            The continuity assumption is used here only to evaluate the
-            Lebesgue&ndash;Stieltjes integral. If \(F\) has jumps, then, writing
-            \(\Delta F(a):=F(a)-F(a-)\) and using \(F(0-)=0\) since \(\M\ge0\), one has
-            \(\int_{[0,x]} F(t)\,dF(t)=\frac12 F(x)^2+\frac12\sum_{0\le a\le x}(\Delta F(a))^2\ge \frac12 F(x)^2\).
-            Thus the possible jumps only contribute a nonnegative correction at this
-            point. <a href="#fnref-1" aria-label="Back to content">Back</a>
-          </li>
-        </ol>
-      </section>
-
       <section class="references" aria-labelledby="references-heading">
         <h2 id="references-heading">References</h2>
         <ol>
@@ -875,5 +1171,48 @@
     </article>
   </main>
   <a class="back-to-top" href="#top" aria-label="Return to top" hidden>Top</a>
+  <script>
+    (() => {
+      const toggles = document.querySelectorAll("[data-disclosure-target]");
+
+      function setDisclosureOpen(toggle, box, isOpen) {
+        box.hidden = !isOpen;
+        toggle.setAttribute("aria-expanded", String(isOpen));
+
+        if (
+          isOpen &&
+          window.MathJax &&
+          typeof window.MathJax.typesetPromise === "function"
+        ) {
+          window.MathJax.typesetPromise([box]).catch(() => {});
+        }
+      }
+
+      toggles.forEach((toggle) => {
+        const box = document.getElementById(toggle.dataset.disclosureTarget);
+        if (!box) return;
+
+        toggle.addEventListener("click", () => {
+          setDisclosureOpen(toggle, box, box.hidden);
+        });
+      });
+
+      function openDisclosureFromHash() {
+        const targetId = window.location.hash.slice(1);
+        if (!targetId) return;
+
+        const target = document.getElementById(targetId);
+        const toggle = target && target.querySelector("[data-disclosure-target]");
+        if (!toggle) return;
+
+        const box = document.getElementById(toggle.dataset.disclosureTarget);
+        if (box) setDisclosureOpen(toggle, box, true);
+      }
+
+      window.addEventListener("hashchange", openDisclosureFromHash);
+      openDisclosureFromHash();
+
+    })();
+  </script>
 </body>
 </html>
