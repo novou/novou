@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Threshold Rules for the Discounted I.I.D. Prophet Inequality</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script defer src="../top-button.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        processEscapes: true,
+        tags: "ams",
+        macros: {
+          E: "\\mathbb{E}",
+          Prob: "\\mathbb{P}",
+          ALG: "\\mathsf{ALG}",
+          M: "\\mathsf{M}"
+        }
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body id="top">
+  <div class="mondrian-bg" aria-hidden="true"></div>
+  <main class="page note-page">
+    <nav class="note-nav" aria-label="Site navigation">
+      <a href="/">Home</a>
+      <a href="../pdf/note-2.pdf">PDF</a>
+    </nav>
+
+    <article class="note-article">
+      <header class="note-header">
+        <h1>Threshold Rules for the Discounted I.I.D. Prophet Inequality</h1>
+        <p>Jiechen Zhang</p>
+        <p>June 2026</p>
+      </header>
+    
+      <h2>Problem setting</h2>
+      
+      <p>
+        Let \(0\le\gamma\le1\), and let \(X_1,X_2,\ldots\) be i.i.d. nonnegative random
+        variables with common distribution \(F\). The observed discounted reward at
+        time \(i\) is
+      </p>
+
+      <div class="math-block">
+        \[
+        Z_i:=\gamma^{i-1}X_i.
+        \]
+      </div>
+
+      <p>
+        We use the convention \(\gamma^0=1\). When \(\gamma=0\), only the first
+        observation matters. The main discounted argument treats \(0\le\gamma&lt;1\);
+        the endpoint \(\gamma=1\) is the undiscounted i.i.d. problem and is discussed
+        separately near the end.
+      </p>
+
+      <p>The prophet receives</p>
+
+      <div class="math-block">
+        \[
+        \M:=\sup_{i\ge1}Z_i
+        =
+        \sup_{i\ge1}\gamma^{i-1}X_i.
+        \]
+      </div>
+
+      <p>
+        We assume \(\E[\M]&lt;\infty\). If \(\E[\M]=0\), every guarantee below is
+        trivial. Since \(\M\ge X_1\), we also have \(\E[X_1]&lt;\infty\). When
+        \(0&lt;\gamma&lt;1\), Borel-Cantelli gives \(Z_i\to0\) almost surely (indeed,
+        for every
+        \(\varepsilon&gt;0\),
+        \(\sum_i\Prob(\gamma^{i-1}X_i&gt;\varepsilon)&lt;\infty\) by
+        \(\E[X_1]&lt;\infty\)), so the supremum defining \(\M\) is attained almost
+        surely; when \(\gamma=0\), \(\M=X_1\).
+      </p>
+
+      <p>
+        Let \(\tau\ge0\) be a deterministic threshold. The algorithm stops at the
+        first index \(i\) such that \(Z_i>\tau\). Define
+      </p>
+
+      <div class="math-block">
+        \[
+        I_i:=\mathbf{1}\{Z_i>\tau\}\prod_{j&lt;i}\mathbf{1}\{Z_j\le\tau\},
+        \qquad
+        \ALG_\tau:=\sum_{i\ge1}Z_iI_i.
+        \]
+      </div>
+
+      <p>
+        Since \(I_i=1\) implies \(Z_i>\tau\), we have \(Z_iI_i=\tau I_i+(Z_i-\tau)^+I_i\).
+        Summing over \(i\) and using \(\sum_i I_i=\mathbf{1}\{\M>\tau\}\) yields
+        the threshold/surplus decomposition below.
+      </p>
+
+      <p>
+        For \(0\le\gamma&lt;1\), the goal is to choose a deterministic fixed threshold
+        \(\tau\) satisfying
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_\tau]\ge \frac{1}{1+\gamma}\E[\M].
+        \]
+      </div>
+
+      <figure class="note-plot" aria-labelledby="guarantee-plot-title">
+        <div class="plot-frame">
+          <svg
+            role="img"
+            width="100%"
+            height="280"
+            viewBox="0 0 640 280"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title id="guarantee-plot-title">ALG lower-bound possibility</title>
+            <desc>
+              The fixed-threshold lower bound for ALG over the prophet value is 1 over
+              1 plus gamma, decreasing from 1 to one half.
+            </desc>
+            <line x1="60" y1="24" x2="60" y2="224" stroke="#111" stroke-width="2" />
+            <line x1="60" y1="224" x2="600" y2="224" stroke="#111" stroke-width="2" />
+            <polyline
+              fill="none"
+              stroke="#e53935"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="4"
+              points="
+                60,24
+                114,42.18
+                168,57.33
+                222,70.15
+                276,81.14
+                330,90.67
+                384,99
+                438,106.35
+                492,112.89
+                546,118.74
+                600,124
+              "
+            />
+            <circle cx="60" cy="24" r="4" fill="#111" />
+            <circle cx="600" cy="124" r="4" fill="#fff" stroke="#111" stroke-width="2" />
+            <text x="60" y="246" fill="#111" font-size="15" text-anchor="middle">0</text>
+            <text x="600" y="246" fill="#111" font-size="15" text-anchor="middle">1</text>
+            <text x="48" y="129" fill="#111" font-size="15" text-anchor="end">0.5</text>
+            <text x="48" y="29" fill="#111" font-size="15" text-anchor="end">1</text>
+          </svg>
+          <div class="plot-curve-label">\(1/(1+\gamma)\)</div>
+          <div class="plot-x-label">\(\gamma\)</div>
+        </div>
+        <figcaption>
+          Lower-bound possibility: fixed thresholds certify \(1/(1+\gamma)\).
+        </figcaption>
+      </figure>
+
+      <p>For a threshold \(\tau\), define the prophet tail and prophet surplus by</p>
+
+      <div class="math-block">
+        \[
+        p(\tau):=\Prob(\M>\tau),
+        \qquad
+        S(\tau):=\E[(\M-\tau)^+].
+        \]
+      </div>
+
+      <p>
+        Throughout, we first assume that ties occur with probability zero; the general
+        case follows by independent infinitesimal tie-breaking perturbations.
+      </p>
+
+      <h2>Threshold decomposition</h2>
+
+      <p>
+        We use the same threshold/surplus framework as in the
+        <a href="1.html">Threshold Rules for the Classical Prophet Inequality</a>:
+        split the realized payoff into the threshold part and the surplus above the
+        threshold, then certify the surplus. The discounted setting uses this framework
+        with \(Z_i\) in place of \(X_i\), and the geometric discount supplies the
+        extra surplus estimate. For the proof below, assume
+        \(0\le\gamma&lt;1\). Taking expectations in the threshold/surplus decomposition gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \E[\ALG_\tau]
+        &amp;=
+        \underbrace{\E[\tau\mathbf{1}\{\M>\tau\}]}_{\text{threshold part}}
+        +
+        \underbrace{\E\left[\sum_{i\ge1}(Z_i-\tau)^+I_i\right]}_{\text{surplus part}} \\
+        &amp;=
+        p(\tau)\tau+
+        \E\left[\sum_{i\ge1}(Z_i-\tau)^+I_i\right].
+        \end{aligned}
+        \tag{1}\label{eq:discounted-threshold-surplus}
+        \]
+      </div>
+
+      <p>
+        Thus it remains to certify the surplus term. Write
+      </p>
+
+      <div class="math-block">
+        \[
+        c_i(\tau):=\E[(Z_i-\tau)^+].
+        \]
+      </div>
+
+      <p>
+        Since the event of reaching time \(i\) is independent of \(Z_i\), the threshold
+        surplus term is
+      </p>
+
+      <div class="math-block">
+        \[
+        \E\left[\sum_{i\ge1}(Z_i-\tau)^+I_i\right]
+        =
+        \sum_{i\ge1}
+        \Prob(Z_1\le\tau,\ldots,Z_{i-1}\le\tau)c_i(\tau).
+        \tag{2}\label{eq:exact-discounted-surplus}
+        \]
+      </div>
+
+      <p>Set</p>
+
+      <div class="math-block">
+        \[
+        C(\tau):=\sum_{i\ge1}c_i(\tau).
+        \]
+      </div>
+
+      <p>
+        Since the maximum surplus is at most the sum of the coordinate surpluses,
+      </p>
+
+      <div class="math-block">
+        \[
+        S(\tau)=\E[(\M-\tau)^+]
+        \le
+        \sum_{i\ge1}\E[(Z_i-\tau)^+]
+        =
+        C(\tau).
+        \tag{3}\label{eq:surplus-sum-dominates}
+        \]
+      </div>
+
+      <p>
+        Also, for every \(i\), reaching time \(i\) is at least as likely as the event
+        that no discounted value ever crosses the threshold:
+      </p>
+
+      <div class="math-block">
+        \[
+        \Prob(Z_1\le\tau,\ldots,Z_{i-1}\le\tau)
+        \ge
+        \Prob(\M\le\tau)=1-p(\tau).
+        \]
+      </div>
+
+      <p>
+        The discounted structure supplies one extra piece. Since
+        \(Z_{i+1}\overset{d}{=}\gamma Z_i\), we have
+      </p>
+
+      <div class="math-block">
+        \[
+        c_{i+1}(\tau)
+        =
+        \E[(\gamma Z_i-\tau)^+]
+        \le
+        \gamma\E[(Z_i-\tau)^+]
+        =
+        \gamma c_i(\tau).
+        \]
+      </div>
+
+      <p>
+        Here \(\gamma&lt;1\) matters: geometric decay makes the total discounted surplus
+        controllable by the first surplus term. Thus \(C(\tau)\le c_1(\tau)/(1-\gamma)\),
+        or equivalently
+      </p>
+
+      <div class="math-block">
+        \[
+        c_1(\tau)\ge (1-\gamma)C(\tau).
+        \tag{4}\label{eq:first-surplus-controls-total}
+        \]
+      </div>
+
+      <p>
+        Since the reach probability at \(i=1\) is \(1\), combining the reach lower
+        bound with \(\eqref{eq:first-surplus-controls-total}\) gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \sum_{i\ge1}
+        \Prob(Z_1\le\tau,\ldots,Z_{i-1}\le\tau)c_i(\tau)
+        &amp;\ge
+        (1-p(\tau))C(\tau)+p(\tau)c_1(\tau) \\
+        &amp;\ge
+        (1-p(\tau))C(\tau)+p(\tau)(1-\gamma)C(\tau) \\
+        &amp;=
+        \bigl(1-\gamma p(\tau)\bigr)C(\tau) \\
+        &amp;\ge
+        \bigl(1-\gamma p(\tau)\bigr)S(\tau).
+        \end{aligned}
+        \]
+      </div>
+
+      <p>
+        Substituting this into \(\eqref{eq:discounted-threshold-surplus}\) gives the
+        discounted threshold decomposition
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_\tau]
+        \ge
+        p(\tau)\tau+\bigl(1-\gamma p(\tau)\bigr)S(\tau).
+        \tag{5}\label{eq:discounted-decomposition}
+        \]
+      </div>
+
+      <section
+        class="clickable-proof"
+        id="scope-of-certificate"
+        aria-labelledby="scope-of-certificate-heading"
+      >
+        <h3 class="clickable-proof-heading" id="scope-of-certificate-heading">
+          <button
+            type="button"
+            class="clickable-proof-toggle"
+            aria-expanded="false"
+            aria-controls="scope-of-certificate-panel"
+            data-disclosure-target="scope-of-certificate-panel"
+          >
+            <span>Remark: Scope of the Certificate</span>
+          </button>
+        </h3>
+
+        <aside
+          class="clickable-proof-panel"
+          id="scope-of-certificate-panel"
+          role="note"
+          aria-labelledby="scope-of-certificate-heading"
+          hidden
+        >
+          <p>
+            The same proof applies to a finite horizon by replacing the sums over
+            \(i\ge1\) with sums over the available times.
+          </p>
+
+          <p>
+            Independence is used to factor the reach event from the current observation.
+            Beyond independence, identical distribution enters through the geometric
+            surplus decay \(c_{i+1}(\tau)\le\gamma c_i(\tau)\). Thus the same
+            certificate applies to any independent discounted sequence for which this
+            decay inequality holds for every \(i\) and \(\tau\).
+          </p>
+
+          <p>
+            The endpoint \(\gamma=1\) is not obtained by substituting into this proof.
+            Then \(c_1(\tau)\ge(1-\gamma)C(\tau)\) becomes vacuous, and in an
+            undiscounted infinite horizon the sum \(C(\tau)\) need not be finite. This
+            is why the undiscounted endpoint is treated separately below.
+          </p>
+        </aside>
+      </section>
+
+      <h2>Deterministic thresholds</h2>
+
+      <p>
+        For \(0\le\gamma&lt;1\), the discounted decomposition gives three deterministic
+        fixed-threshold calibrations, all balancing the same inequality in different
+        ways.
+      </p>
+
+      <p>
+        The useful certificate is obtained by centering the lower bound at the target
+        value. Since \(\M\le\tau+(\M-\tau)^+\), we have \(S(\tau)\ge\E[\M]-\tau\).
+        Hence, by \(\eqref{eq:discounted-decomposition}\),
+      </p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \E[\ALG_\tau]
+        &amp;\ge
+        p(\tau)\tau+\bigl(1-\gamma p(\tau)\bigr)S(\tau) \\
+        &amp;\ge
+        p(\tau)\tau+\bigl(1-\gamma p(\tau)\bigr)(\E[\M]-\tau) \\
+        &amp;=
+        \frac{1}{1+\gamma}\E[\M]+
+        \left(p(\tau)-\frac{1}{1+\gamma}\right)
+        \Bigl((1+\gamma)\tau-\gamma\E[\M]\Bigr).
+        \end{aligned}
+        \tag{6}\label{eq:centered-certificate}
+        \]
+      </div>
+
+      <h3>Discounted mean and tail-probability thresholds</h3>
+
+      <p>
+        This centered form gives the discounted mean threshold
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau_{\mathrm{mean}}
+        :=
+        \frac{\gamma}{1+\gamma}\E[\M].
+        \]
+      </div>
+
+      <p>
+        because this value makes the second factor in
+        \(\eqref{eq:centered-certificate}\) vanish. Therefore
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_{\tau_{\mathrm{mean}}}]
+        \ge
+        \frac{1}{1+\gamma}\E[\M].
+        \]
+      </div>
+
+      <p>
+        More generally, if \(0\le c\le1\) and \(\tau=c\E[\M]\), then
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_\tau]
+        \ge
+        \min\{1-c,\ 1-\gamma+\gamma c\}\E[\M].
+        \tag{7}\label{eq:mean-curve}
+        \]
+      </div>
+
+      <p>
+        Indeed, substituting \(\tau=c\E[\M]\) into
+        \(\eqref{eq:centered-certificate}\), and then using only
+        \(0\le p(\tau)\le1\), gives the first term \(1-c\) when
+        \((1+\gamma)c-\gamma\ge0\), and the second term \(1-\gamma+\gamma c\) when
+        \((1+\gamma)c-\gamma\le0\).
+      </p>
+
+      <p>
+        The two terms in \(\eqref{eq:mean-curve}\) balance when
+      </p>
+
+      <div class="math-block">
+        \[
+        1-c=1-\gamma+\gamma c,
+        \qquad
+        c=\frac{\gamma}{1+\gamma}.
+        \]
+      </div>
+
+      <p>
+        At this value, both terms are \(1/(1+\gamma)\), matching the factor obtained
+        by the centered certificate.
+      </p>
+
+      <p>
+        For \(0&lt;\gamma&lt;1\), another analogue of the median threshold is the
+        tail-probability threshold \(\tau_{\mathrm{tail}}\), chosen so that
+      </p>
+
+      <div class="math-block">
+        \[
+        p(\tau_{\mathrm{tail}})
+        =
+        \Prob(\M>\tau_{\mathrm{tail}})
+        =
+        \frac{1}{1+\gamma}.
+        \]
+      </div>
+
+      <p>
+        When this exact level is attainable (otherwise one may use the corresponding
+        quantile with an arbitrarily small independent perturbation and pass to the
+        limit), the first factor in \(\eqref{eq:centered-certificate}\) vanishes at this
+        threshold. Therefore
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_{\tau_{\mathrm{tail}}}]
+        \ge
+        \frac{1}{1+\gamma}\E[\M].
+        \]
+      </div>
+
+      <p>
+        More generally, the centered certificate shows that every deterministic fixed
+        threshold between \(\tau_{\mathrm{mean}}\) and \(\tau_{\mathrm{tail}}\) works:
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau\in
+        \left[
+        \min\{\tau_{\mathrm{mean}},\tau_{\mathrm{tail}}\},
+        \max\{\tau_{\mathrm{mean}},\tau_{\mathrm{tail}}\}
+        \right]
+        \quad\Longrightarrow\quad
+        \E[\ALG_\tau]\ge \frac{1}{1+\gamma}\E[\M].
+        \]
+      </div>
+
+      <p>
+        Equivalently, \(\eqref{eq:centered-certificate}\) gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_\tau]
+        \ge
+        \frac{1}{1+\gamma}\E[\M]
+        +
+        \left(p(\tau)-\frac{1}{1+\gamma}\right)
+        \Bigl((1+\gamma)\tau-\gamma\E[\M]\Bigr).
+        \tag{8}\label{eq:interval-certificate}
+        \]
+      </div>
+
+      <p>
+        The second factor in \(\eqref{eq:interval-certificate}\) changes sign at
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau_{\mathrm{mean}}=\frac{\gamma}{1+\gamma}\E[\M].
+        \]
+      </div>
+
+      <p>
+        The first factor changes sign at \(\tau_{\mathrm{tail}}\), because
+        \(p(\tau_{\mathrm{tail}})=1/(1+\gamma)\) and \(p(\tau)\) is nonincreasing in
+        \(\tau\). Hence the two factors have the same sign throughout the interval
+        between \(\tau_{\mathrm{mean}}\) and \(\tau_{\mathrm{tail}}\), so the product
+        term in \(\eqref{eq:interval-certificate}\) is nonnegative.
+      </p>
+
+      <h3>Surplus fixed point</h3>
+
+      <p>
+        A third deterministic calibration is the fixed point
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau_\star=\gamma S(\tau_\star)
+        =
+        \gamma\E[(\M-\tau_\star)^+].
+        \]
+      </div>
+
+      <p>
+        Existence and uniqueness are immediate from monotonicity. The function
+        \(S(\tau)\) is continuous, nonincreasing, finite, and satisfies
+        \(S(0)=\E[\M]\) and \(S(\tau)\to0\) as \(\tau\to\infty\). Define
+      </p>
+
+      <div class="math-block">
+        \[
+        h(\tau):=\tau-\gamma S(\tau).
+        \]
+      </div>
+
+      <p>
+        Then \(h(0)=-\gamma\E[\M]\le0\), with equality only at the trivial endpoint
+        \(\gamma=0\), while \(h(\tau)\to\infty\). Thus a solution exists. If
+        \(\tau_2>\tau_1\), then
+      </p>
+
+      <div class="math-block">
+        \[
+        h(\tau_2)-h(\tau_1)
+        =
+        (\tau_2-\tau_1)+\gamma\bigl(S(\tau_1)-S(\tau_2)\bigr)
+        >
+        0.
+        \]
+      </div>
+
+      <p>
+        Hence \(h\) is strictly increasing, so the fixed point is unique.
+      </p>
+
+      <p>It also satisfies</p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_{\tau_\star}]
+        \ge
+        \frac{1}{1+\gamma}\E[\M].
+        \]
+      </div>
+
+      <p>
+        Indeed, substituting \(\tau_\star=\gamma S(\tau_\star)\) into the decomposition
+        gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \E[\ALG_{\tau_\star}]
+        &amp;\ge
+        p(\tau_\star)\tau_\star+
+        \bigl(1-\gamma p(\tau_\star)\bigr)S(\tau_\star) \\
+        &amp;=
+        \gamma p(\tau_\star)S(\tau_\star)+
+        \bigl(1-\gamma p(\tau_\star)\bigr)S(\tau_\star) \\
+        &amp;=
+        S(\tau_\star).
+        \end{aligned}
+        \]
+      </div>
+
+      <p>On the other hand,</p>
+
+      <div class="math-block">
+        \[
+        \E[\M]
+        \le
+        \tau_\star+S(\tau_\star)
+        =
+        (1+\gamma)S(\tau_\star).
+        \]
+      </div>
+
+      <p>Therefore \(S(\tau_\star)\ge\E[\M]/(1+\gamma)\), proving the guarantee.</p>
+
+      <p>
+        This also gives another interval. Since
+        \(\tau_\star=\gamma S(\tau_\star)\), the preceding inequality implies
+        \(\tau_\star\ge\tau_{\mathrm{mean}}\). For \(0&lt;\gamma&lt;1\), if
+        \(\tau\in[\tau_{\mathrm{mean}},\tau_\star]\), then \(h(\tau)\le0\), so
+        \(\tau\le\gamma S(\tau)\). Using the decomposition and \(p(\tau)\le1\),
+      </p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \E[\ALG_\tau]
+        &amp;\ge
+        S(\tau)+p(\tau)\bigl(\tau-\gamma S(\tau)\bigr) \\
+        &amp;\ge
+        \tau+(1-\gamma)S(\tau) \\
+        &amp;\ge
+        \frac{\tau}{\gamma}
+        \ge
+        \frac{1}{1+\gamma}\E[\M].
+        \end{aligned}
+        \]
+      </div>
+
+      <p>
+        Thus every threshold between \(\tau_{\mathrm{mean}}\) and \(\tau_\star\) also
+        works. At \(\gamma=0\), this interval degenerates to \(\tau=0\).
+      </p>
+
+      <h3>A certified interval of deterministic thresholds</h3>
+
+      <p>
+        For \(0&lt;\gamma&lt;1\), combining the two deterministic intervals above, the
+        present certificates guarantee the \(1/(1+\gamma)\) bound for every
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau\in
+        \left[
+        \min\{\tau_{\mathrm{tail}},\tau_{\mathrm{mean}}\},
+        \max\{\tau_{\mathrm{tail}},\tau_\star\}
+        \right].
+        \]
+      </div>
+
+      <p>
+        That is, every threshold in this interval satisfies
+        \(\E[\ALG_\tau]\ge\E[\M]/(1+\gamma)\).
+      </p>
+
+      <h2>A hard instance</h2>
+
+      <p>
+        The following infinite-horizon instance shows why the factor
+        \(1/(1+\gamma)\) is tight. Fix \(\gamma\in(0,1)\). For a large parameter
+        \(H\), let
+      </p>
+
+      <div class="math-block">
+        \[
+        X_i=
+        \begin{cases}
+        H, &amp; \text{with probability } p_H,\\
+        \gamma, &amp; \text{with probability } 1-p_H,
+        \end{cases}
+        \qquad
+        p_H:=\frac{1-\gamma}{H}.
+        \]
+      </div>
+
+      <p>
+        Here \(\gamma\) is the decent value that appears almost immediately. The value
+        \(H\) is rare, but there are infinitely many chances to see it before discount
+        erases its contribution.
+      </p>
+
+      <h3>Online value</h3>
+
+      <p>
+        Let \(V_H\) be the optimal online value for this instance, allowing arbitrary
+        stopping rules. By stationarity, \(V_H\) satisfies the Bellman equation
+      </p>
+
+      <div class="math-block">
+        \[
+        V_H=\E[\max\{X_1,\gamma V_H\}].
+        \]
+      </div>
+
+      <p>
+        Stopping immediately gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[X_1]
+        =
+        p_HH+(1-p_H)\gamma
+        =
+        1-\gamma p_H.
+        \]
+      </div>
+
+      <p>
+        For this value, the continuation value is
+      </p>
+
+      <div class="math-block">
+        \[
+        \gamma(1-\gamma p_H)&lt;\gamma.
+        \]
+      </div>
+
+      <p>
+        Thus even the low observation \(\gamma\) is better than continuing, so stopping
+        immediately is optimal. Hence
+      </p>
+
+      <div class="math-block">
+        \[
+        V_H=1-\gamma p_H\longrightarrow 1
+        \qquad
+        \text{as }H\to\infty.
+        \tag{9}\label{eq:hard-online}
+        \]
+      </div>
+
+      <h3>Prophet value</h3>
+
+      <p>
+        Let
+      </p>
+
+      <div class="math-block">
+        \[
+        T_H:=\inf\{i\ge1:X_i=H\}
+        \]
+      </div>
+
+      <p>
+        be the first high arrival. Then \(T_H\) is geometric with parameter \(p_H\),
+        and the best discounted high value is \(H\gamma^{T_H-1}\). The prophet's
+        payoff is trapped between
+      </p>
+
+      <div class="math-block">
+        \[
+        \gamma\mathbf{1}\{X_1=\gamma\}
+        +
+        \bigl(H\gamma^{T_H-1}-\gamma\bigr)^+
+        \le
+        \M
+        \le
+        \gamma+H\gamma^{T_H-1}.
+        \tag{10}\label{eq:hard-prophet-sandwich}
+        \]
+      </div>
+
+      <p>
+        The upper bound gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\M]
+        \le
+        \gamma+
+        H\E[\gamma^{T_H-1}]
+        =
+        \gamma+
+        \frac{Hp_H}{1-\gamma(1-p_H)}
+        \longrightarrow
+        \gamma+1.
+        \]
+      </div>
+
+      <p>
+        For the lower bound, fix \(K\). For all sufficiently large \(H\),
+        \(H\gamma^{i-1}>\gamma\) for \(i=1,\ldots,K\), and therefore
+      </p>
+
+      <div class="math-block">
+        \[
+        \begin{aligned}
+        \E\left[\bigl(H\gamma^{T_H-1}-\gamma\bigr)^+\right]
+        &amp;\ge
+        \sum_{i=1}^K
+        p_H(1-p_H)^{i-1}\bigl(H\gamma^{i-1}-\gamma\bigr) \\
+        &amp;\longrightarrow
+        (1-\gamma)\sum_{i=1}^K\gamma^{i-1}.
+        \end{aligned}
+        \]
+      </div>
+
+      <p>
+        Letting \(K\to\infty\), and using
+        \(\E[\gamma\mathbf{1}\{X_1=\gamma\}]\to\gamma\), the lower bound in
+        \(\eqref{eq:hard-prophet-sandwich}\) gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \liminf_{H\to\infty}\E[\M]\ge \gamma+1.
+        \]
+      </div>
+
+      <p>
+        Consequently,
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\M]\longrightarrow 1+\gamma.
+        \tag{11}\label{eq:hard-prophet}
+        \]
+      </div>
+
+      <p>
+        Combining \(\eqref{eq:hard-online}\) and \(\eqref{eq:hard-prophet}\),
+      </p>
+
+      <div class="math-block">
+        \[
+        \frac{V_H}{\E[\M]}\longrightarrow \frac{1}{1+\gamma}.
+        \]
+      </div>
+
+      <p>
+        The online rule cannot afford to pass up the immediate value \(\gamma\) in
+        search of a very rare \(H\), so its value stays near \(1\). The prophet
+        receives the baseline contribution \(\gamma\), and also captures one unit of
+        expected value from the rare high opportunity spread over infinitely many
+        discounted chances.
+      </p>
+
+      <h2>Fixed horizon versus infinite horizon</h2>
+
+      <p>
+        Separate the two roles of the infinite horizon. The guarantee itself does not
+        need infinitely many observations; the infinite horizon is used to show
+        sharpness of the constant.
+      </p>
+
+      <p>
+        For a fixed discount \(0&lt;\gamma&lt;1\), the weights
+        \(1,\gamma,\gamma^2,\ldots\) have total mass
+      </p>
+
+      <div class="math-block">
+        \[
+        1+\gamma+\gamma^2+\cdots=\frac{1}{1-\gamma}.
+        \]
+      </div>
+
+      <p>
+        This is the effective horizon: the number of full-strength opportunities
+        represented by the discounted infinite stream. It is not a hard cutoff; it says
+        that far-future observations still exist, but their combined discounted weight
+        is comparable to finitely many undiscounted observations.
+      </p>
+
+      <p>
+        The decomposition proof applies equally to an actual finite horizon \(n\). If
+      </p>
+
+      <div class="math-block">
+        \[
+        \M_n:=\max_{1\le i\le n}\gamma^{i-1}X_i,
+        \]
+      </div>
+
+      <p>
+        and \(\ALG_{n,\tau}\) denotes the realized payoff of the same fixed
+        observed-value threshold \(\tau\), stopped within the first \(n\) observations,
+        then the same argument gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \sup_{\tau\ge0}\E[\ALG_{n,\tau}]
+        \ge
+        \frac{1}{1+\gamma}\E[\M_n].
+        \]
+      </div>
+
+      <p>
+        Thus for any fixed \(0&lt;\gamma&lt;1\), the same certificate gives the
+        finite-horizon factor \(1/(1+\gamma)\). For fixed finite \(n\), sharper
+        horizon-dependent constants may be possible; already at \(n=1\), the prophet
+        and the online player both face only \(X_1\), so the best ratio is \(1\). The
+        infinite horizon gives the matching obstruction for \(1/(1+\gamma)\). In the
+        finite-horizon statement, the only formal change is which prophet maximum
+        appears: \(\M_n\) replaces \(\M\). The threshold/surplus comparison is
+        otherwise the same.
+      </p>
+
+      <p>
+        The hard instance above explains the obstruction. The online rule sees a
+        dependable value \(\gamma\) immediately and must decide whether to stop or wait
+        for a rare value \(H\). The prophet keeps the dependable baseline and also
+        benefits if a rare high value appears early enough.
+      </p>
+
+      <p>
+        "Early enough" is the key phrase. A high value arriving at time \(i\) is seen
+        as the observed reward \(H\gamma^{i-1}\). It is useful for the hard instance
+        only while it remains comparable to the low baseline \(\gamma\), namely for
+        times satisfying
+      </p>
+
+      <div class="math-block">
+        \[
+        H\gamma^{i-1}\gtrsim \gamma.
+        \]
+      </div>
+
+      <p>
+        To see the scale of this window, rewrite the inequality as
+      </p>
+
+      <div class="math-block">
+        \[
+        H\gamma^{i-1}\gtrsim \gamma
+        \quad\Longleftrightarrow\quad
+        \gamma^{i-1}\gtrsim \frac{\gamma}{H}.
+        \]
+      </div>
+
+      <p>
+        Taking logarithms gives
+      </p>
+
+      <div class="math-block">
+        \[
+        i-1
+        \lesssim
+        \frac{\log(H/\gamma)}{\log(1/\gamma)}.
+        \]
+      </div>
+
+      <p>
+        For fixed \(\gamma\), the additive \(\log(1/\gamma)\) term inside
+        \(\log(H/\gamma)\) is constant, so this is of order
+      </p>
+
+      <div class="math-block">
+        \[
+        \log_{1/\gamma} H.
+        \]
+      </div>
+
+      <p>
+        The logarithm appears because each extra time step multiplies the high value
+        by another factor of \(\gamma\). The high value starts at size \(H\), and it
+        takes about \(\log_{1/\gamma}H\) discount steps before it falls back to the
+        scale of the low value.
+      </p>
+
+      <p>
+        A convenient shorthand for the scale of this useful window is
+      </p>
+
+      <div class="math-block">
+        \[
+        \text{useful window length}\asymp \log_{1/\gamma}H.
+        \]
+      </div>
+
+      <p>
+        Read this as scale intuition, not a precise cutoff. For fixed \(n\), the same
+        two-point construction gives a milder obstruction, because the prophet has
+        only the first \(n\) discounted chances to benefit from the rare high value.
+        In the large-\(H\) limit, this construction's prophet value is governed by the
+        partial geometric sum
+      </p>
+
+      <div class="math-block">
+        \[
+        \gamma+(1-\gamma)(1+\gamma+\cdots+\gamma^{n-1})
+        =
+        1+\gamma-\gamma^n,
+        \]
+      </div>
+
+      <p>
+        while the online value stays near \(1\). This is only the obstruction from
+        this family, not an exact finite-\(n\) constant; only as \(n\to\infty\) does it
+        approach the infinite-horizon obstruction \(1+\gamma\). Conceptually, the
+        lower bound comes from the discounted surplus decomposition and already works
+        at finite horizon; the matching upper-bound obstruction comes from allowing
+        sufficiently many discounted chances for the rare high value.
+      </p>
+
+      <h3>The undiscounted endpoint</h3>
+
+      <p>
+        The endpoint \(\gamma=1\) should be kept conceptually separate because the
+        discounted surplus certificate above uses \(1-\gamma&gt;0\). For
+        \(0&lt;\gamma&lt;1\), the infinite-horizon hard instance forces the ratio
+        \(1/(1+\gamma)\), which tends to \(1/2\) as \(\gamma\uparrow1\). At
+        \(\gamma=1\), the undiscounted infinite-horizon endpoint has different
+        structure and the bounded-support ratio is \(1\).
+      </p>
+
+      <figure class="note-plot" aria-labelledby="endpoint-plot-title">
+        <div class="plot-frame">
+          <svg
+            role="img"
+            width="100%"
+            height="250"
+            viewBox="0 0 640 250"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title id="endpoint-plot-title">Hard-instance upper-bound obstruction</title>
+            <desc>
+              The hard-instance upper-bound curve is 1 over 1 plus gamma for gamma less
+              than one, while the undiscounted endpoint at gamma equals one is one.
+            </desc>
+            <line x1="60" y1="24" x2="60" y2="204" stroke="#111" stroke-width="2" />
+            <line x1="60" y1="204" x2="600" y2="204" stroke="#111" stroke-width="2" />
+            <polyline
+              fill="none"
+              stroke="#e53935"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="4"
+              points="
+                60,24
+                114,40.36
+                168,53.99
+                222,65.53
+                276,75.83
+                330,84
+                384,91.5
+                438,98.11
+                492,103.9
+                546,109.17
+                600,114
+              "
+            />
+            <circle cx="600" cy="114" r="5" fill="#fff" stroke="#e53935" stroke-width="3" />
+            <circle cx="600" cy="24" r="5" fill="#111" />
+            <text x="60" y="226" fill="#111" font-size="15" text-anchor="middle">0</text>
+            <text x="600" y="226" fill="#111" font-size="15" text-anchor="middle">1</text>
+            <text x="48" y="119" fill="#111" font-size="15" text-anchor="end">0.5</text>
+            <text x="48" y="29" fill="#111" font-size="15" text-anchor="end">1</text>
+          </svg>
+          <div class="plot-curve-label">\(1/(1+\gamma)\)</div>
+          <div class="plot-endpoint-label">\(\gamma=1\)</div>
+          <div class="plot-x-label">\(\gamma\)</div>
+        </div>
+        <figcaption>
+          Upper-bound obstruction: the hard instance forces \(1/(1+\gamma)\).
+        </figcaption>
+      </figure>
+
+      <p>
+        In the finite undiscounted i.i.d. case, a single fixed threshold already gives
+        a stronger benchmark than \(1/2\). Choose the threshold
+        \(\tau\) at the upper \(1/n\)-quantile of the common distribution, so that
+        each observation crosses with probability \(1/n\). Then the rule accepts some
+        observation with probability \(1-(1-1/n)^n\), and the same threshold/surplus
+        calculation gives
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_{n,\tau}]
+        \ge
+        \left(1-\left(1-\frac1n\right)^n\right)\E[\M_n]
+        \ge
+        \left(1-\frac1e\right)\E[\M_n].
+        \]
+      </div>
+
+      <p>
+        This is the \(1-1/e\) i.i.d. single-threshold guarantee of Hill and Kertz
+        <span class="citation">[<a href="#ref-hk82">HK82</a>]</span>.
+      </p>
+
+      <p>
+        For the standard finite-horizon i.i.d. prophet problem, allowing the full
+        optimal stopping rule improves the universal constant beyond \(1/2\). The
+        sharp constant is \(1/\beta\approx0.745\), where \(\beta&gt;1\) is the unique
+        solution of
+      </p>
+
+      <div class="math-block">
+        \[
+        \int_0^1
+        \frac{dy}{y(1-\ln y)+(\beta-1)}
+        =
+        1.
+        \]
+      </div>
+
+      <p>
+        Kertz's i.i.d. prophet-region analysis gives this upper bound and the exact
+        expression for \(\beta\)
+        <span class="citation">[<a href="#ref-ker86">Ker86</a>]</span>. Later
+        threshold strategies attain the same constant, so the bound is tight
+        <span class="citation">[<a href="#ref-cfhov21">CFHOV21</a>]</span>.
+      </p>
+
+      <p>
+        At infinite horizon with \(\gamma=1\) and bounded support, the situation
+        degenerates further. If \(x^\star=\operatorname{ess\,sup}X&lt;\infty\), then
+        the prophet's maximum is \(x^\star\) almost surely. A fixed threshold rule can
+        stop at the first time \(X_i&gt;x^\star-\varepsilon\), which occurs almost
+        surely when that event has positive probability, and obtains at least
+        \(x^\star-\varepsilon\). Letting \(\varepsilon\downarrow0\) gives ratio \(1\).
+        This endpoint sanity check is useful context, but it is not the
+        fixed-\(\gamma&lt;1\) discounted obstruction proved above.
+      </p>
+
+      <h2>Takeaway</h2>
+
+      <p>
+        For \(0\le\gamma&lt;1\), the mean and fixed-point calibrations are certified;
+        for \(0&lt;\gamma&lt;1\), the tail-probability calibration is certified as well:
+      </p>
+
+      <div class="math-block">
+        \[
+        \tau_{\mathrm{mean}}
+        =
+        \frac{\gamma}{1+\gamma}\E[\M],
+        \qquad
+        \Prob(\M>\tau_{\mathrm{tail}})
+        =
+        \frac{1}{1+\gamma},
+        \qquad
+        \tau_\star
+        =
+        \gamma\E[(\M-\tau_\star)^+].
+        \]
+      </div>
+
+      <p>
+        Each certified threshold guarantees
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_\tau]\ge\frac{1}{1+\gamma}\E[\M].
+        \]
+      </div>
+
+      <p>
+        For \(0&lt;\gamma&lt;1\), the two-point hard instance above shows that this constant
+        is tight: even the optimal online stopping rule has value asymptotic to
+        \(\E[\M]/(1+\gamma)\).
+      </p>
+
+      <p>
+        The discounted mean threshold optimizes a worst-case lower envelope in
+        \(\eqref{eq:mean-curve}\). For \(0&lt;\gamma&lt;1\), the tail-probability
+        threshold makes the threshold and surplus coefficients in
+        \(\eqref{eq:discounted-decomposition}\) equal. The surplus fixed point makes
+        the \(p(\tau)\)-dependent part cancel. Thus the guarantee is not tied to a
+        single threshold; it comes from the common discounted decomposition
+      </p>
+
+      <div class="math-block">
+        \[
+        \E[\ALG_\tau]
+        \ge
+        p(\tau)\tau+\bigl(1-\gamma p(\tau)\bigr)S(\tau).
+        \]
+      </div>
+
+      <p>
+        This is the discounted analogue of the same threshold/surplus principle.
+      </p>
+
+      <section class="references" aria-labelledby="references-heading">
+        <h2 id="references-heading">References</h2>
+        <ol>
+          <li id="ref-hk82">
+            <span class="ref-label">[HK82]</span>
+            Theodore P. Hill and Robert P. Kertz.
+            <em>Comparisons of Stop Rule and Supremum Expectations of I.I.D. Random
+            Variables.</em>
+            The Annals of Probability, 10(2):336-345, 1982.
+          </li>
+          <li id="ref-ker86">
+            <span class="ref-label">[Ker86]</span>
+            Robert P. Kertz.
+            <em>Stop Rule and Supremum Expectations of I.I.D. Random Variables: A Complete
+            Comparison by Conjugate Duality.</em>
+            Journal of Multivariate Analysis, 19(1):88-112, 1986.
+          </li>
+          <li id="ref-cfhov21">
+            <span class="ref-label">[CFHOV21]</span>
+            Jose Correa, Patricio Foncea, Ruben Hoeksma, Tim Oosterwijk, and Tjark
+            Vredeveld.
+            <em>Posted Price Mechanisms and Optimal Threshold Strategies for Random
+            Arrivals.</em>
+            Mathematics of Operations Research, 46(4):1452-1478, 2021.
+          </li>
+        </ol>
+      </section>
+    </article>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Return to top" hidden>Top</a>
+  <script>
+    (() => {
+      const toggles = document.querySelectorAll("[data-disclosure-target]");
+
+      function setDisclosureOpen(toggle, box, isOpen) {
+        box.hidden = !isOpen;
+        toggle.setAttribute("aria-expanded", String(isOpen));
+
+        if (
+          isOpen &&
+          window.MathJax &&
+          typeof window.MathJax.typesetPromise === "function"
+        ) {
+          window.MathJax.typesetPromise([box]).catch(() => {});
+        }
+      }
+
+      toggles.forEach((toggle) => {
+        const box = document.getElementById(toggle.dataset.disclosureTarget);
+        if (!box) return;
+
+        toggle.addEventListener("click", () => {
+          setDisclosureOpen(toggle, box, box.hidden);
+        });
+      });
+
+      function openDisclosureFromHash() {
+        const targetId = window.location.hash.slice(1);
+        if (!targetId) return;
+
+        const target = document.getElementById(targetId);
+        const toggle = target && target.querySelector("[data-disclosure-target]");
+        if (!toggle) return;
+
+        const box = document.getElementById(toggle.dataset.disclosureTarget);
+        if (box) setDisclosureOpen(toggle, box, true);
+      }
+
+      window.addEventListener("hashchange", openDisclosureFromHash);
+      openDisclosureFromHash();
+    })();
+  </script>
+</body>
+</html>
