@@ -170,6 +170,21 @@ html {
 
 .note-list {
   margin: 0;
+  padding-left: 1.35rem;
+}
+
+.note-list li {
+  margin-bottom: 0.45rem;
+  line-height: 1.45;
+}
+
+.note-date {
+  color: #555;
+  white-space: nowrap;
+}
+
+.note-date::before {
+  content: " · ";
 }
 
 .note-link,
@@ -250,6 +265,162 @@ html {
   margin: 0.25rem 0;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.note-plot {
+  margin: 1rem 0 1.15rem;
+}
+
+.plot-frame {
+  position: relative;
+}
+
+.note-plot svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.note-plot figcaption {
+  margin-top: 0.35rem;
+  color: #444;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.plot-x-label {
+  position: absolute;
+  left: 50%;
+  bottom: 0.25rem;
+  transform: translateX(-50%);
+}
+
+.plot-curve-label {
+  position: absolute;
+  top: 4%;
+  left: 14%;
+  color: #111;
+  line-height: 1;
+}
+
+.plot-endpoint-label {
+  position: absolute;
+  top: 4%;
+  right: 10%;
+  color: #111;
+  line-height: 1;
+}
+
+.plot-axis {
+  stroke: #111;
+  stroke-width: 2;
+}
+
+.plot-curve {
+  fill: none;
+  stroke: #e53935;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.plot-point {
+  fill: #111;
+}
+
+.plot-label {
+  fill: #111;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+}
+
+.clickable-proof {
+  margin: 2rem 0 1.6rem;
+}
+
+.clickable-proof-heading {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.clickable-proof-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  color: #111;
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: 2px;
+  box-shadow: none;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, box-shadow 120ms ease;
+}
+
+.clickable-proof-toggle span {
+  min-width: 0;
+}
+
+.clickable-proof-toggle::after {
+  content: "+";
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: #111;
+  background: #fff;
+  border: 1.5px solid #111;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.clickable-proof-toggle[aria-expanded="true"] {
+  color: #111;
+  background: #fff;
+  box-shadow: inset 0 -2px 0 #111;
+}
+
+.clickable-proof-toggle[aria-expanded="true"]::after {
+  content: "\2212";
+  color: #111;
+  background: #fff;
+  border-color: #111;
+}
+
+.clickable-proof-toggle:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+
+.clickable-proof-panel {
+  margin: 0.75rem 0 0;
+  padding: 1.05rem 1.15rem;
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: 2px;
+  box-shadow: 4px 4px 0 #111;
+}
+
+.clickable-proof-panel[hidden] {
+  display: none;
+}
+
+.clickable-proof-panel > :first-child {
+  margin-top: 0;
+}
+
+.clickable-proof-panel > :last-child {
+  margin-bottom: 0;
 }
 
 .citation {
