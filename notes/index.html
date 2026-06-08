@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: #111;
+      background: #f5f2e9;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .mondrian-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-color: #f5f2e9;
+      background-image:
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#e53935 0 0),
+        linear-gradient(#1e88e5 0 0),
+        linear-gradient(#fdd835 0 0),
+        linear-gradient(#e53935 0 0),
+        linear-gradient(#fdd835 0 0),
+        linear-gradient(#1e88e5 0 0),
+        linear-gradient(#ffffff 0 0),
+        linear-gradient(#ffffff 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0),
+        linear-gradient(#111 0 0);
+      background-size:
+        100% 4px,
+        100% 6px,
+        4px 100%,
+        5px 100%,
+        1vw 10vh,
+        2.1vw 2vh,
+        2.7vw 1.7vh,
+        26vw 26vh,
+        16vw 36vh,
+        20vw 28vh,
+        30vw 22vh,
+        18vw 18vh,
+        10vw 10vh,
+        3.2vw 2.6vh,
+        3.0vw 2.4vh,
+        1.6vw 1.3vh,
+        0.8vw 0.8vh,
+        3.8vw 1.1vh,
+        1.2vw 1vh,
+        1.4vw 1.2vh,
+        1.8vw 1.4vh,
+        1.1vw 1vh,
+        1.6vw 1.6vh;
+      background-position:
+        0 28vh,
+        0 68vh,
+        36vw 0,
+        68vw 0,
+        97vw 80vh,
+        92vw 89vh,
+        87.5vw 89vh,
+        6vw 8vh,
+        62vw 5vh,
+        14vw 58vh,
+        58vw 45vh,
+        78vw 70vh,
+        87vw 68vh,
+        12vw 84vh,
+        86vw 46vh,
+        24vw 14vh,
+        18vw 28vh,
+        52vw 76vh,
+        72vw 18vh,
+        8vw 62vh,
+        90vw 12vh,
+        68vw 84vh,
+        40vw 88vh;
+      background-repeat: no-repeat;
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 8vh auto;
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #111;
+      box-shadow: 8px 8px 0 #111;
+    }
+
+    .note-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.95rem;
+    }
+
+    .note-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 3.25rem;
+      min-height: 2.5rem;
+      padding: 0.45rem 0.75rem;
+      color: #111;
+      background: rgba(255, 255, 255, 0.94);
+      border: 2px solid #111;
+      box-shadow: 4px 4px 0 #111;
+      font-weight: 700;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .note-nav a:hover,
+    .note-nav a:focus-visible {
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0 #111;
+    }
+
+    .note-nav a:focus-visible {
+      outline: 2px solid #1e88e5;
+      outline-offset: 3px;
+    }
+
+    .note-article {
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .note-header {
+      margin-bottom: 1.8rem;
+      text-align: center;
+    }
+
+    .note-header h1 {
+      margin: 0 0 0.6rem;
+      font-size: 1.65rem;
+      line-height: 1.25;
+    }
+
+    .note-header p {
+      margin: 0;
+    }
+
+    .note-list {
+      margin: 1.4rem 0 0;
+      padding-left: 1.35rem;
+    }
+
+    .note-list li {
+      margin-bottom: 0.45rem;
+      line-height: 1.45;
+    }
+
+    .note-title {
+      font-weight: 700;
+    }
+
+    .note-date {
+      color: #555;
+      white-space: nowrap;
+    }
+
+    .note-date::before {
+      content: " - ";
+    }
+
+    .note-abstract {
+      margin: 0.65rem 0 0;
+      padding: 0.85rem 1rem;
+      background: #fff;
+      border: 2px solid #111;
+      box-shadow: 4px 4px 0 #111;
+    }
+
+    .note-abstract h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .note-abstract p {
+      margin: 0;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        margin: 4vh 1rem;
+        padding: 1.5rem;
+        box-shadow: 6px 6px 0 #111;
+      }
+
+      .note-header h1 {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <div class="mondrian-bg" aria-hidden="true"></div>
+  <main class="page">
+    <nav class="note-nav" aria-label="Site navigation">
+      <a href="/">Home</a>
+    </nav>
+
+    <article class="note-article">
+      <header class="note-header">
+        <h1>Notes</h1>
+        <p>Jiechen Zhang</p>
+      </header>
+
+      <p>
+        These notes study fixed-threshold stopping rules: observe rewards one by
+        one, stop when a reward crosses a chosen threshold, and compare the payoff
+        to a prophet who sees everything in advance.
+      </p>
+
+      <ol class="note-list" reversed>
+        <li>
+          <div>
+            <span class="note-title">
+              Threshold Rules for the Classical Prophet Inequality
+            </span>
+            <span class="note-date">May 2026</span>
+          </div>
+          <section class="note-abstract" aria-labelledby="note-1-abstract">
+            <h2 id="note-1-abstract">Abstract</h2>
+            <p>
+              This note records a common threshold/surplus decomposition for
+              single-threshold stopping rules in the classical prophet inequality.
+              The same decomposition is used to certify several deterministic
+              thresholds, including the median, half-mean, and balanced-surplus
+              thresholds, and to give an averaged certificate for randomized
+              thresholds distributed as the maximum.
+            </p>
+          </section>
+        </li>
+      </ol>
+    </article>
+  </main>
+</body>
+</html>
